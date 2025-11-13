@@ -34,26 +34,20 @@ public class Mazo {
     /** Fin de métodos primitivos **/
 /********************************************************************/     
     private void armarMazo() {
-        int numero = 1;
-        String palo = "basto";
-        Carta carta;
+        String[] palos = {"basto", "copa", "espada", "oro"};
         
-        for (int i = 0; i < 48; i++) {
-            carta = new Carta(numero,palo);
-            this.insertar(carta);                        
-            numero++; 
-            // Si ya cargue 12 cartas de un palo ...
-            if (numero == 13) {
-                numero = 1;
-                // ... paso al siguiente palo
-                if(palo.equals("basto"))
-                    palo = "copa";
-                else if (palo.equals("copa"))
-                    palo = "espada";
-                else
-                    palo = "oro";
-            } // fin de if (numero == 13)
-        } // fin de for
+        for (int indicePalo = 0; indicePalo < palos.length; indicePalo++) {
+        	String paloActual = palos[indicePalo];
+        	
+        	for (int numero = 1; numero <= 12; numero++) {
+        		if (numero == 8 || numero == 9) {
+        			continue; //Se saltean las cartas 8 y 9
+        		}
+        		
+        		Carta nuevaCarta = new Carta(numero, paloActual);
+        		this.insertar(nuevaCarta);        		
+        	}//Fin recorrido por numero
+        }//Fin recorrido por palo
     }
 /********************************************************************/           
     @Override
