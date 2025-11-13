@@ -61,7 +61,7 @@ public class FrmPrincipal extends JFrame {
 		btnSiguienteCarta.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		btnSiguienteCarta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if (i != 48) {
+				if (i != 40) {
 		            Carta unaCarta = cartas.devolver(i);
 		            lblCarta.setIcon(new ImageIcon(unaCarta.toString()));
 		            i++;
