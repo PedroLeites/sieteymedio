@@ -29,6 +29,16 @@ public class Carta {
         this.palo = palo;
     }
     
+    //Métodos específicos
+    /** Devuelve el valor de la carta según las reglas del siete y medio. */
+    public double obtenerValorParaSieteYMedio() {
+        if (numero >= 1 && numero <= 7) {
+            return numero;          // valen su número
+        } else {                    // 10, 11, 12
+            return 0.5;             
+        }
+    }
+    
     //Método toString
     @Override
     public String toString() {  
