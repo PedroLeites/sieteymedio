@@ -20,10 +20,6 @@ public class SieteYMedio {
         mazo.reiniciar();
         turnoJugadorTerminado = false;
         rondaTerminada = false;
-
-        // Carta inicial para el jugador
-        Carta cartaInicial = mazo.robarCarta();
-        manoJugador.agregarCarta(cartaInicial);
     }
 
     /** Acción Pedir carta del jugador. Devuelve la carta que se robó. */

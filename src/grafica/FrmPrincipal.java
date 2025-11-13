@@ -73,11 +73,11 @@ public class FrmPrincipal extends JFrame {
         
         //=== CARTA DE LA BANCA ===
         lblCartaBanca = new JLabel("");
-        lblCartaBanca.setBounds(400, 80, 215, 320);
+        lblCartaBanca.setBounds(420, 80, 215, 320);
         contentPane.add(lblCartaBanca);
 
         lblPuntajeBanca = new JLabel("Puntaje banca: 0");
-        lblPuntajeBanca.setBounds(400, 40, 200, 20);
+        lblPuntajeBanca.setBounds(420, 40, 200, 20);
         contentPane.add(lblPuntajeBanca);
 		
         //=== BOTÓN PEDIR CARTA ===
