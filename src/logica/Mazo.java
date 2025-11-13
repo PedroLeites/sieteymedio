@@ -7,11 +7,11 @@ import java.util.Collections;
 public class Mazo {
     //Atributos
     private ArrayList<Carta> baraja; //Colección dinámica de cartas
-    private Random aleatorio;
+    private Random azar;
     
     //Método constructor
     public Mazo() {
-    	aleatorio = new Random();
+    	azar = new Random();
         baraja = new ArrayList<>();
         armarMazo();
     }
@@ -57,7 +57,7 @@ public class Mazo {
     
     /** Mezcla el mazo usando el objeto Random. */
     public void mezclar() {
-        Collections.shuffle(baraja, aleatorio);
+        Collections.shuffle(baraja, azar);
     }
     
     /** Devuelve la carta del tope y la elimina del mazo. */
@@ -73,7 +73,7 @@ public class Mazo {
     /** Vuelve a armar y mezclar el mazo. */
     public void reiniciar() {
     	baraja.clear(); //Eliminamos todas las cartas para luego no tener duplicadas
-        armarMazo();
+        armarMazo();	
         mezclar();
     }
     
