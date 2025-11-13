@@ -4,7 +4,8 @@ package grafica;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import logica.Carta;
-import logica.Mazo;
+import logica.Mano;
+import logica.SieteYMedio;
 
 import java.awt.EventQueue;
 import javax.swing.JFrame;
@@ -19,12 +20,18 @@ import java.awt.event.ActionEvent;
 import java.awt.Font;
 
 public class FrmPrincipal extends JFrame {
-	private Mazo cartas;
-    private int i;
+	private SieteYMedio juego;
 
 	private JPanel contentPane;
-	private JTextField txtContarCartas;
-	private JLabel lblCarta;
+	
+	private JLabel lblCartaJugador;
+	private JLabel lblCartaBanca;
+	private JLabel lblPuntajeJugador;
+	private JLabel lblPuntajeBanca;
+
+	private JButton btnPedirCarta;
+	private JButton btnPlantarse;
+	private JButton btnNuevaRonda;
 
 	/**
 	 * Launch the application.
@@ -47,55 +54,124 @@ public class FrmPrincipal extends JFrame {
 	 */
 	public FrmPrincipal() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 560, 460);
+		setBounds(100, 100, 700, 500);
+        setTitle("Juego - Siete y Medio");
+        setLocationRelativeTo(null);
+        
 		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		setContentPane(contentPane);
 		
-		lblCarta = new JLabel("");
-		lblCarta.setBounds(53, 55, 215, 320);
-		contentPane.add(lblCarta);
+		//=== CARTA DEL JUGADOR ===
+        lblCartaJugador = new JLabel("");
+        lblCartaJugador.setBounds(50, 80, 215, 320);
+        contentPane.add(lblCartaJugador);
+
+        lblPuntajeJugador = new JLabel("Puntaje jugador: 0");
+        lblPuntajeJugador.setBounds(50, 40, 200, 20);
+        contentPane.add(lblPuntajeJugador);
+        
+        //=== CARTA DE LA BANCA ===
+        lblCartaBanca = new JLabel("");
+        lblCartaBanca.setBounds(400, 80, 215, 320);
+        contentPane.add(lblCartaBanca);
+
+        lblPuntajeBanca = new JLabel("Puntaje banca: 0");
+        lblPuntajeBanca.setBounds(400, 40, 200, 20);
+        contentPane.add(lblPuntajeBanca);
 		
-		JButton btnSiguienteCarta = new JButton("Siguiente carta");
-		btnSiguienteCarta.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-		btnSiguienteCarta.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				if (i != 40) {
-		            Carta unaCarta = cartas.devolver(i);
-		            lblCarta.setIcon(new ImageIcon(unaCarta.toString()));
-		            i++;
-		            txtContarCartas.setText(String.valueOf(i));
-		        } else {
-		            iniciarJuego();
-		            JOptionPane.showMessageDialog(null, "No hay mas cartas", 
-		                    "Fin", JOptionPane.ERROR_MESSAGE);
-		        }
-			}
-		});
-		btnSiguienteCarta.setBounds(306, 69, 185, 23);
-		contentPane.add(btnSiguienteCarta);
-		
-		JLabel lblContarCartas = new JLabel("Cartas sacadas:");
-		lblContarCartas.setBounds(306, 125, 99, 14);
-		contentPane.add(lblContarCartas);
-		
-		txtContarCartas = new JTextField();
-		txtContarCartas.setHorizontalAlignment(SwingConstants.CENTER);
-		txtContarCartas.setEnabled(false);
-		txtContarCartas.setText("0");
-		txtContarCartas.setBounds(415, 122, 53, 20);
-		contentPane.add(txtContarCartas);
-		txtContarCartas.setColumns(10);
-		
+        //=== BOTÓN PEDIR CARTA ===
+        btnPedirCarta = new JButton("Pedir carta");
+        btnPedirCarta.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        btnPedirCarta.setBounds(280, 80, 130, 30);
+        btnPedirCarta.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                pedirCartaJugador();
+            }
+        });
+        contentPane.add(btnPedirCarta);
+
+        //=== BOTÓN PLANTARSE ===
+        btnPlantarse = new JButton("Plantarse");
+        btnPlantarse.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        btnPlantarse.setBounds(280, 130, 130, 30);
+        btnPlantarse.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                plantarseJugador();
+            }
+        });
+        contentPane.add(btnPlantarse);
+
+        //=== BOTÓN NUEVA RONDA ===
+        btnNuevaRonda = new JButton("Nueva ronda");
+        btnNuevaRonda.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        btnNuevaRonda.setBounds(280, 180, 130, 30);
+        btnNuevaRonda.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                iniciarJuego();
+            }
+        });
+        contentPane.add(btnNuevaRonda);
+        
 		iniciarJuego();
 	}
 	
 	public void iniciarJuego(){
-        cartas = new Mazo();
-        i = 0;
-        String tapa = "img/otra/tapa.png";
-        lblCarta.setIcon(new ImageIcon(tapa));
-        txtContarCartas.setText("0");
+		juego = new SieteYMedio();
+	    juego.iniciarNuevaRonda();
+	    mostrarEstadoInicial();
     }
+	
+	private void mostrarEstadoInicial() {
+	    String tapa = "img/otra/tapa.png";
+	    
+	    //Mostrar la tapa hasta que el jugador robe
+	    lblCartaJugador.setIcon(new ImageIcon(tapa));
+
+	    //La banca empieza sin cartas visibles
+	    lblCartaBanca.setIcon(new ImageIcon(tapa));
+
+	    //Mostrar puntajes
+	    lblPuntajeJugador.setText("Puntaje jugador: " + juego.obtenerPuntajeJugador());
+	    lblPuntajeBanca.setText("Puntaje banca: " + juego.obtenerPuntajeBanca());
+	}
+	
+	private void pedirCartaJugador() {
+        Carta carta = juego.jugadorPideCarta();
+
+        if (carta != null) {
+            lblCartaJugador.setIcon(new ImageIcon(carta.toString()));
+            lblPuntajeJugador.setText("Puntaje jugador: " + juego.obtenerPuntajeJugador());
+        }
+
+        if (juego.obtenerPuntajeJugador() > 7.5) {
+            JOptionPane.showMessageDialog(this, juego.obtenerResultadoTexto());
+            habilitarBotones(false);
+        }
+    }
+
+    private void plantarseJugador() {
+        juego.jugadorSePlanta();
+
+        // Mostrar última carta de la banca
+        Mano banca = juego.getManoBanca();
+        int cant = banca.cantidadCartas();
+        if (cant > 0) {
+            Carta carta = banca.devolverCarta(cant - 1);
+            lblCartaBanca.setIcon(new ImageIcon(carta.toString()));
+        }
+
+        lblPuntajeJugador.setText("Puntaje jugador: " + juego.obtenerPuntajeJugador());
+        lblPuntajeBanca.setText("Puntaje banca: " + juego.obtenerPuntajeBanca());
+
+        JOptionPane.showMessageDialog(this, juego.obtenerResultadoTexto());
+
+        habilitarBotones(false);
+    }
+
+    private void habilitarBotones(boolean estado) {
+        btnPedirCarta.setEnabled(estado);
+        btnPlantarse.setEnabled(estado);
+    }
+
 }
