@@ -1,4 +1,4 @@
-# 🃏 Proyecto: Juego de **Siete y Medio** en Java (Swing)
+# 🃏 Proyecto: Juego de **Siete y Medio** en Java
 
 ## 🎯 Descripción del proyecto
 
