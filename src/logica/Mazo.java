@@ -1,13 +1,17 @@
 package logica;
 
 import java.util.ArrayList; 
+import java.util.Random;
+import java.util.Collections;
 
 public class Mazo {
     //Atributos
     private ArrayList<Carta> baraja; //Colección dinámica de cartas
+    private Random aleatorio;
     
     //Método constructor
     public Mazo() {
+    	aleatorio = new Random();
         baraja = new ArrayList<>();
         armarMazo();
     }
@@ -32,7 +36,8 @@ public class Mazo {
         return baraja.get(i);
     }
     /** Fin de métodos primitivos **/
-/********************************************************************/     
+/********************************************************************/    
+    /** Métodos específicos **/
     private void armarMazo() {
         String[] palos = {"basto", "copa", "espada", "oro"};
         
@@ -49,6 +54,30 @@ public class Mazo {
         	}//Fin recorrido por numero
         }//Fin recorrido por palo
     }
+    
+    /** Mezcla el mazo usando el objeto Random. */
+    public void mezclar() {
+        Collections.shuffle(baraja, aleatorio);
+    }
+    
+    /** Devuelve la carta del tope y la elimina del mazo. */
+    public Carta robarCarta() {
+    	Carta cartaRobada = null;
+        if (!this.sinCartas()) {
+            cartaRobada = this.devolver(0);
+            this.eliminar(0);
+        }
+        return cartaRobada;
+    }
+    
+    /** Vuelve a armar y mezclar el mazo. */
+    public void reiniciar() {
+    	baraja.clear(); //Eliminamos todas las cartas para luego no tener duplicadas
+        armarMazo();
+        mezclar();
+    }
+    
+    /** Fin de métodos específicos **/
 /********************************************************************/           
     @Override
     public String toString() {
