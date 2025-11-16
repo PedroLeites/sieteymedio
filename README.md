@@ -114,7 +114,7 @@ img/
 
 ## 👥 Créditos
 
-Proyecto desarrollado por estudiantes de 2do MC como trabajo final la asignatura **Programación Avanzada** del curso **BT - Tecnologías de la Información** perteneciente a **DGETP/CETP - UTU**, bajo modalidad por misiones:
+Proyecto desarrollado por estudiantes de 2do de bachillerato como trabajo final la asignatura **Programación Avanzada** del curso **BT - Tecnologías de la Información** perteneciente a **DGETP/CETP - UTU**, bajo modalidad por misiones:
 
 - Misión 1: Valor de las cartas  
 - Misión 2: Mazo real  
