@@ -31,6 +31,7 @@ public class FrmPrincipal extends JFrame {
     private JButton btnPedirCarta;
     private JButton btnPlantarse;
     private JButton btnNuevaRonda;
+    private JButton btnReglas;
 
     /**
      * Método main: lanza la aplicación.
@@ -55,6 +56,7 @@ public class FrmPrincipal extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setTitle("Juego Siete y Medio");
         setBounds(100, 100, 600, 450);
+        setLocationRelativeTo(null);
 
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -104,6 +106,12 @@ public class FrmPrincipal extends JFrame {
         btnNuevaRonda.setFont(new Font("Segoe UI", Font.PLAIN, 12));
         btnNuevaRonda.setBounds(300, 250, 150, 30);
         contentPane.add(btnNuevaRonda);
+        
+        // === Botón Ver Reglas ===
+        btnReglas = new JButton("Ver reglas");
+        btnReglas.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+        btnReglas.setBounds(300, 290, 150, 30);
+        contentPane.add(btnReglas);
 
         // === Eventos de los botones ===
 
@@ -126,6 +134,13 @@ public class FrmPrincipal extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 iniciarJuego();
             }
+        });
+        
+        // Cuando el jugador quiere ver las reglas
+        btnReglas.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent arg0) {
+        		mostrarReglas();
+        	}
         });
 
         // Iniciar la primera ronda al abrir la ventana
@@ -204,5 +219,10 @@ public class FrmPrincipal extends JFrame {
 
         btnPedirCarta.setEnabled(false);
         btnPlantarse.setEnabled(false);
+    }
+    
+    public void mostrarReglas() {
+    	DlgReglas ventReglas = new DlgReglas(this, "Reglas del juego", true);
+    	ventReglas.setVisible(true);
     }
 }
